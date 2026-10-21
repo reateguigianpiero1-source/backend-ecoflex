@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TiendaHerramientas.Models.Categoria>
+
+@{
+    ViewBag.Title = "Categorías";
+}
+
+<h2>Categorías</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<p>
+    @Html.ActionLink("Nueva categoría", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Todavía no hay categorías. Crea la primera con el botón "Nueva categoría".
+    </div>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Productos</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Tipo</td>
+                    <td>@(string.IsNullOrEmpty(item.Descripcion) ? "—" : item.Descripcion)</td>
+                    <td>@item.Productos.Count</td>
+                    <td class="text-right">
+                        @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

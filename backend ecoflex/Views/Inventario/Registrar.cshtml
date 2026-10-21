@@ -1,0 +1,64 @@
+﻿@using TiendaHerramientas.Models
+@model MovimientoInventario
+
+@{
+    ViewBag.Title = "Registrar movimiento";
+    var inventario = (Inventario)ViewBag.Inventario;
+}
+
+<h2>Registrar movimiento</h2>
+<h4>@inventario.Producto.Nombre <small>@inventario.Producto.Sku</small></h4>
+
+<p>
+    Stock actual: <strong>@inventario.StockActual</strong>.
+    Disponible: <strong>@inventario.StockDisponible</strong>.
+</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.InventarioId)
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Tipo, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EnumDropDownListFor(m => m.Tipo, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Tipo, "", new { @class = "text-danger" })
+                <span class="help-block">
+                    Entrada y Devolucion suman al stock. Salida resta. Ajuste deja el stock exactamente en la cantidad que escribas.
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Cantidad, new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Cantidad, new { @class = "form-control", type = "number", min = "1" })
+                @Html.ValidationMessageFor(m => m.Cantidad, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Motivo, new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Motivo, new { @class = "form-control", placeholder = "Ej: compra a proveedor, producto dañado" })
+                @Html.ValidationMessageFor(m => m.Motivo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">Guardar movimiento</button>
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

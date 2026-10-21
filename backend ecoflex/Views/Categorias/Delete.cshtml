@@ -1,0 +1,44 @@
+﻿@model TiendaHerramientas.Models.Categoria
+
+@{
+    ViewBag.Title = "Eliminar categoría";
+}
+
+<h2>Eliminar categoría</h2>
+
+@if (Model.Productos.Any())
+{
+    <div class="alert alert-warning">
+        Esta categoría tiene @Model.Productos.Count producto(s), así que no se puede eliminar.
+        Cambia la categoría de esos productos y vuelve a intentarlo.
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">
+        Esta acción no se puede deshacer.
+    </div>
+}
+
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayNameFor(m => m.Nombre)</dt>
+    <dd>@Model.Nombre</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.Tipo)</dt>
+    <dd>@Model.Tipo</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.Descripcion)</dt>
+    <dd>@(string.IsNullOrEmpty(Model.Descripcion) ? "—" : Model.Descripcion)</dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (!Model.Productos.Any())
+    {
+        <button type="submit" class="btn btn-danger">Eliminar categoría</button>
+    }
+
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+}

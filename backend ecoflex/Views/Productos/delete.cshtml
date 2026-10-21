@@ -1,0 +1,32 @@
+﻿@model TiendaHerramientas.Models.Producto
+
+@{
+    ViewBag.Title = "Desactivar producto";
+}
+
+<h2>Desactivar producto</h2>
+
+<div class="alert alert-warning">
+    El producto dejará de aparecer en el catálogo. Su historial se conserva.
+</div>
+
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayNameFor(m => m.Sku)</dt>
+    <dd>@Model.Sku</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.Nombre)</dt>
+    <dd>@Model.Nombre</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.Categoria)</dt>
+    <dd>@(Model.Categoria != null ? Model.Categoria.Nombre : "—")</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.PrecioVenta)</dt>
+    <dd>S/ @Model.PrecioVenta.ToString("N2")</dd>
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Desactivar producto</button>
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+}

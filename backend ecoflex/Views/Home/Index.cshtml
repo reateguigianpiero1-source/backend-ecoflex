@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="page-header">
+    <h1>Tienda de herramientas y embalaje</h1>
+    <p class="lead">Elige qué quieres hacer.</p>
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Productos</h3></div>
+            <div class="panel-body">
+                <p>Consulta el catálogo, busca por nombre o SKU, y agrega, edita o desactiva productos.</p>
+                @Html.ActionLink("Ver productos", "Index", "Productos", null, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Nuevo producto", "Create", "Productos", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Categorías</h3></div>
+            <div class="panel-body">
+                <p>Organiza los productos en herramientas y embalaje. Crea una categoría antes de agregar productos.</p>
+                @Html.ActionLink("Ver categorías", "Index", "Categorias", null, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Nueva categoría", "Create", "Categorias", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Inventario</h3></div>
+            <div class="panel-body">
+                <p>Revisa el stock, registra entradas y salidas, y mira qué productos tienen el stock bajo.</p>
+                @Html.ActionLink("Ver inventario", "Index", "Inventario", null, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Stock bajo", "Index", "Inventario", new { soloStockBajo = true }, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">Carrito</h3></div>
+            <div class="panel-body">
+                <p>Mira los productos que agregaste al carrito, cambia cantidades y revisa el total.</p>
+                @Html.ActionLink("Ver carrito", "Index", "Carrito", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+    </div>
+
+</div>

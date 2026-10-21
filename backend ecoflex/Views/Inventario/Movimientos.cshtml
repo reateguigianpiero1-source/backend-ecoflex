@@ -1,0 +1,53 @@
+﻿@using TiendaHerramientas.Models
+@model IEnumerable<MovimientoInventario>
+
+@{
+    ViewBag.Title = "Historial de movimientos";
+    var inventario = (Inventario)ViewBag.Inventario;
+}
+
+<h2>Historial de movimientos</h2>
+<h4>@inventario.Producto.Nombre <small>@inventario.Producto.Sku</small></h4>
+
+<p>
+    Stock actual: <strong>@inventario.StockActual</strong>.
+    Disponible: <strong>@inventario.StockDisponible</strong>.
+</p>
+
+<p>
+    @Html.ActionLink("Registrar movimiento", "Registrar", new { id = inventario.ProductoId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Volver al inventario", "Index", null, new { @class = "btn btn-link" })
+</p>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        Este producto todavía no tiene movimientos. Registra una entrada para cargar el stock inicial.
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Cantidad</th>
+                <th>Motivo</th>
+                <th>Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@item.Tipo</td>
+                    <td>@(item.Tipo == TipoMovimiento.Salida ? "-" : item.Tipo == TipoMovimiento.Ajuste ? "= " : "+")@item.Cantidad</td>
+                    <td>@(string.IsNullOrEmpty(item.Motivo) ? "—" : item.Motivo)</td>
+                    <td>@(string.IsNullOrEmpty(item.Usuario) ? "—" : item.Usuario)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

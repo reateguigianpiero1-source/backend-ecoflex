@@ -1,0 +1,84 @@
+﻿@model TiendaHerramientas.Models.Producto
+
+@{
+    ViewBag.Title = Model.Nombre;
+    int disponible = Model.Inventario != null ? Model.Inventario.StockDisponible : 0;
+}
+
+<h2>@Model.Nombre</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <dl class="dl-horizontal">
+            <dt>@Html.DisplayNameFor(m => m.Sku)</dt>
+            <dd>@Model.Sku</dd>
+
+            <dt>@Html.DisplayNameFor(m => m.Categoria)</dt>
+            <dd>@(Model.Categoria != null ? Model.Categoria.Nombre : "—")</dd>
+
+            <dt>@Html.DisplayNameFor(m => m.Marca)</dt>
+            <dd>@(string.IsNullOrEmpty(Model.Marca) ? "—" : Model.Marca)</dd>
+
+            <dt>@Html.DisplayNameFor(m => m.Descripcion)</dt>
+            <dd>@(string.IsNullOrEmpty(Model.Descripcion) ? "—" : Model.Descripcion)</dd>
+
+            <dt>@Html.DisplayNameFor(m => m.PrecioVenta)</dt>
+            <dd>S/ @Model.PrecioVenta.ToString("N2")</dd>
+
+            <dt>@Html.DisplayNameFor(m => m.UnidadMedida)</dt>
+            <dd>@Model.UnidadMedida</dd>
+
+            <dt>@Html.DisplayNameFor(m => m.Dimensiones)</dt>
+            <dd>@(string.IsNullOrEmpty(Model.Dimensiones) ? "—" : Model.Dimensiones)</dd>
+
+            <dt>@Html.DisplayNameFor(m => m.PesoKg)</dt>
+            <dd>@(Model.PesoKg.HasValue ? Model.PesoKg.Value.ToString("0.###") + " kg" : "—")</dd>
+
+            <dt>Disponibilidad</dt>
+            <dd>
+                @if (disponible > 0)
+                {
+                    <span class="label label-success">@disponible disponibles</span>
+                }
+                else
+                {
+                    <span class="label label-danger">Agotado</span>
+                }
+            </dd>
+        </dl>
+
+        @if (Model.Activo && disponible > 0)
+        {
+            using (Html.BeginForm("Agregar", "Carrito", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="productoId" value="@Model.Id" />
+                <label for="cantidad">Cantidad</label>
+                <input type="number" id="cantidad" name="cantidad" value="1" min="1" max="@disponible" class="form-control" style="width: 100px;" />
+                <button type="submit" class="btn btn-success">Agregar al carrito</button>
+            }
+        }
+        else
+        {
+            <p class="text-danger">Este producto no está disponible por ahora.</p>
+        }
+    </div>
+
+    <div class="col-md-5">
+        @if (!string.IsNullOrEmpty(Model.ImagenUrl))
+        {
+            <img src="@Model.ImagenUrl" alt="@Model.Nombre" class="img-responsive img-thumbnail" />
+        }
+    </div>
+</div>
+
+<hr />
+<p>
+    @Html.ActionLink("Editar producto", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Volver a productos", "Index", null, new { @class = "btn btn-link" })
+</p>

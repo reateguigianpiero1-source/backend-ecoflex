@@ -1,0 +1,98 @@
+﻿@model TiendaHerramientas.Models.Producto
+
+<div class="form-horizontal">
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Sku, new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(m => m.Sku, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Sku, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nombre, new { @class = "control-label col-md-2" })
+        <div class="col-md-6">
+            @Html.EditorFor(m => m.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CategoriaId, new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.DropDownListFor(m => m.CategoriaId, (SelectList)ViewBag.CategoriaId, "Selecciona una categoría", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CategoriaId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Marca, new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(m => m.Marca, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.Marca, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Descripcion, new { @class = "control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.TextAreaFor(m => m.Descripcion, 4, 40, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PrecioVenta, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(m => m.PrecioVenta, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.PrecioVenta, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(m => m.PrecioCosto, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(m => m.PrecioCosto, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.PrecioCosto, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UnidadMedida, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(m => m.UnidadMedida, new { htmlAttributes = new { @class = "form-control", placeholder = "Unidad, Caja, Rollo..." } })
+            @Html.ValidationMessageFor(m => m.UnidadMedida, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(m => m.PesoKg, new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(m => m.PesoKg, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.PesoKg, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dimensiones, new { @class = "control-label col-md-2" })
+        <div class="col-md-4">
+            @Html.EditorFor(m => m.Dimensiones, new { htmlAttributes = new { @class = "form-control", placeholder = "Ej: 40x30x20 cm" } })
+            @Html.ValidationMessageFor(m => m.Dimensiones, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ImagenUrl, new { @class = "control-label col-md-2" })
+        <div class="col-md-8">
+            @Html.EditorFor(m => m.ImagenUrl, new { htmlAttributes = new { @class = "form-control", placeholder = "https://..." } })
+            @Html.ValidationMessageFor(m => m.ImagenUrl, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="checkbox">
+                <label>
+                    @Html.EditorFor(m => m.Activo)
+                    Mostrar en el catálogo
+                </label>
+            </div>
+        </div>
+    </div>
+
+</div>
